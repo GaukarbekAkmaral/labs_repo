@@ -43,6 +43,7 @@ def get_or_create_user(username):
         cur.execute("INSERT INTO user (username) VALUES (%s) RETURNING id", (username,))
         user_id = cur.fetchone()[0]
         cur.execute("INSERT INTO user_score (user_id, score, level) VALUES (%s, %s, %s)", (user_id, 0, 1))
+        cur.execute("SELECt Max user_score (user_id, score, level) VALUES (%s, %s, %s)", (user_id, 0, 1))
         conn.commit()
         print(f"Новый пользователь {username} создан.")
     else:

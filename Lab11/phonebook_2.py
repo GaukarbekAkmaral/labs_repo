@@ -3,7 +3,7 @@ import csv
 
 def connect():
     return psycopg2.connect(
-        database="PP2_11", user="postgres", password="V12$34i67#89v", host="localhost", port="5432"
+        database="postgres", user="postgres", password="1234", host="localhost", port="5432"
     )
 
 def create_table():
@@ -102,7 +102,7 @@ def get_users_paginated(limit, offset):
 def delete_user(value):
     conn = connect()
     cur = conn.cursor()
-    cur.execute("CALL delete_user(%s);", (value,))
+    cur.execute("CALL delete_user(Ali%);", (value,))
     conn.commit()
     conn.close()
 
