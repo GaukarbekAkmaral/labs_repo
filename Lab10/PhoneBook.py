@@ -6,7 +6,8 @@ conn = psycopg2.connect(
     host="localhost",
     dbname="phonebook_db",      
     user="Akmaral",             
-    password="12345"            
+    password="12345", 
+    options='-c client_encoding=UTF8'           
 )
 cur = conn.cursor()
 
@@ -40,7 +41,7 @@ def insert_from_input():
     phone = input("Введите номер телефона: ")
     cur.execute("INSERT INTO phonebook (username, phone) VALUES (%s, %s)", (username, phone))
     conn.commit()
-    print("✅ Данные успешно добавлены.")
+    print(" Данные успешно добавлены.")
 
 # Обновление данных
 def update_data():
@@ -54,7 +55,7 @@ def update_data():
         new_phone = input("Введите новый телефон: ")
         cur.execute("UPDATE phonebook SET phone = %s WHERE username = %s", (new_phone, name))
     conn.commit()
-    print("✅ Обновление выполнено.")
+    print(" Обновление выполнено.")
 
 # Поиск
 def search_phonebook():
@@ -70,7 +71,7 @@ def search_phonebook():
         cur.execute("SELECT * FROM phonebook WHERE phone ILIKE %s", ('%' + phone + '%',))
     
     rows = cur.fetchall()
-    print("\n📞 Найденные записи:")
+    print("\n Найденные записи:")
     for row in rows:
         print(row)
 
@@ -84,12 +85,12 @@ def delete_data():
         phone = input("Введите телефон: ")
         cur.execute("DELETE FROM phonebook WHERE phone = %s", (phone,))
     conn.commit()
-    print("✅ Удаление завершено.")
+    print(" Удаление завершено.")
 
 # Главное меню
 def main():
     while True:
-        print("\n📱 Меню PhoneBook:")
+        print("Меню PhoneBook:")
         print("1. Добавить из CSV")
         print("2. Добавить вручную")
         print("3. Обновить запись")
